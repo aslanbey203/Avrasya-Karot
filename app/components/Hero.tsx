@@ -42,7 +42,7 @@ export default function Hero() {
               className="inline-flex items-center gap-3 rounded-2xl bg-orange-500 px-7 py-4 font-bold text-white shadow-xl transition hover:scale-105 hover:bg-orange-600"
             >
               <Phone size={22} />
-              Ortağımı Ara
+              Bizi Arayın
             </a>
           </div>
 
