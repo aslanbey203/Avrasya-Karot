@@ -7,23 +7,23 @@ import Lightbox from "./Lightbox";
 const images = [
   {
     title: "Karot Delme",
-    image: "/images/gallery/gallery-1.jpg",
+    image: "/images/Gallery/gallery-1.jpg",
   },
   {
     title: "Beton Kesme",
-    image: "/images/gallery/gallery-2.jpg",
+    image: "/images/Gallery/gallery-2.jpg",
   },
   {
     title: "Duvar Kesme",
-    image: "/images/gallery/gallery-3.jpg",
+    image: "/images/Gallery/gallery-3.jpg",
   },
   {
     title: "AVRASYA KAROT",
-    image: "/images/gallery/gallery-4.jpg",
+    image: "/images/Gallery/gallery-4.jpg",
   },
   {
     title: "Profesyonel Ekip",
-    image: "/images/gallery/gallery-5.jpg",
+    image: "/images/Gallery/gallery-5.jpg",
   },
 ];
 
