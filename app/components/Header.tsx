@@ -1,116 +1,54 @@
 "use client";
 
 import Image from "next/image";
-import { Menu, Phone, X, MessageCircle } from "lucide-react";
+import Link from "next/link";
+import { Menu, Phone, X } from "lucide-react";
 import { useState } from "react";
-import { siteConfig, whatsappUrl } from "../lib/site";
+import { siteConfig } from "../lib/site";
 
-const navItems = [
-  { label: "Ana Sayfa", href: "#anasayfa" },
-  { label: "Hizmetler", href: "#hizmetler" },
-  { label: "Neden Biz", href: "#neden-biz" },
-  { label: "Bölgeler", href: "#bolgeler" },
-  { label: "İletişim", href: "#iletisim" },
+const links = [
+  { href: "/", label: "Ana Sayfa" },
+  { href: "/#hizmetler", label: "Hizmetler" },
+  { href: "/#neden-biz", label: "Neden Biz" },
+  { href: "/#galeri", label: "Galeri" },
+  { href: "/#iletisim", label: "İletişim" },
 ];
 
 export default function Header() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="fixed left-0 top-0 z-50 w-full border-b border-slate-800/70 bg-slate-950/85 shadow-lg backdrop-blur-xl">
-      <div className="mx-auto flex h-24 max-w-7xl items-center justify-between px-5 md:px-8">
-        <a href="#anasayfa" className="flex items-center gap-4">
-          <div className="relative h-16 w-16 overflow-hidden rounded-2xl border border-slate-800 bg-slate-900 p-1 shadow-xl">
-            <Image
-              src="/images/logo/logo.png"
-              alt="Avrasya Karot Logo"
-              fill
-              sizes="64px"
-              priority
-              className="object-contain"
-            />
-          </div>
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-slate-950/85 backdrop-blur-xl">
+      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-5 lg:px-8">
+        <Link href="/" className="flex items-center gap-3">
+          <span className="relative h-12 w-12 overflow-hidden rounded-xl border border-orange-500/30 bg-slate-900">
+            <Image src="/images/logo/logo.png" alt="Avrasya Karot" fill className="object-contain p-1" priority />
+          </span>
+          <span className="leading-none">
+            <span className="block text-xl font-black tracking-wide text-white">AVRASYA <b className="text-orange-500">KAROT</b></span>
+            <span className="mt-1 block text-[10px] font-bold tracking-[0.28em] text-slate-400">İSTANBUL</span>
+          </span>
+        </Link>
 
-          <div className="leading-none">
-            <h1 className="text-xl font-black tracking-wide text-white md:text-2xl">
-              AVRASYA <span className="text-orange-500">KAROT</span>
-            </h1>
-            <p className="mt-1 hidden text-xs font-semibold tracking-[0.3em] text-slate-400 sm:block">
-              İSTANBUL
-            </p>
-          </div>
-        </a>
-
-        <nav className="hidden items-center gap-8 text-[16px] font-semibold text-white lg:flex">
-          {navItems.map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
-              className="transition duration-300 hover:scale-105 hover:text-orange-500"
-            >
-              {item.label}
-            </a>
-          ))}
+        <nav className="hidden items-center gap-8 text-sm font-semibold text-slate-200 lg:flex">
+          {links.map((link) => <Link key={link.href} href={link.href} className="transition hover:text-orange-500">{link.label}</Link>)}
         </nav>
 
-        <div className="hidden items-center gap-3 lg:flex">
-          <a
-            href={whatsappUrl}
-            target="_blank"
-            className="inline-flex items-center gap-2 rounded-xl border border-green-500/40 px-5 py-3 font-bold text-white transition duration-300 hover:scale-105 hover:bg-green-600"
-          >
-            <MessageCircle size={20} />
-            WhatsApp
-          </a>
+        <a href={`tel:+${siteConfig.operation.phone}`} className="hidden items-center gap-2 rounded-xl bg-orange-500 px-5 py-3 font-bold text-white transition hover:bg-orange-600 lg:flex">
+          <Phone size={18} /> Bizi Arayın
+        </a>
 
-          <a
-            href={`tel:+${siteConfig.operation.phone}`}
-            className="inline-flex items-center gap-2 rounded-xl bg-orange-500 px-6 py-3 font-bold text-white shadow-lg transition duration-300 hover:scale-105 hover:bg-orange-600"
-          >
-            <Phone size={20} />
-            Hemen Ara
-          </a>
-        </div>
-
-        <button
-          onClick={() => setOpen((value) => !value)}
-          className="inline-flex h-12 w-12 items-center justify-center rounded-xl border border-slate-800 text-white lg:hidden"
-          aria-label="Menüyü aç"
-        >
+        <button onClick={() => setOpen(!open)} className="rounded-lg border border-slate-700 p-2 text-white lg:hidden" aria-label="Menüyü aç">
           {open ? <X /> : <Menu />}
         </button>
       </div>
 
       {open && (
-        <div className="border-t border-slate-800 bg-slate-950 px-5 py-6 lg:hidden">
-          <nav className="grid gap-4">
-            {navItems.map((item) => (
-              <a
-                key={item.href}
-                href={item.href}
-                onClick={() => setOpen(false)}
-                className="rounded-xl border border-slate-800 px-4 py-3 font-semibold text-white hover:border-orange-500 hover:text-orange-500"
-              >
-                {item.label}
-              </a>
-            ))}
+        <div className="border-t border-slate-800 bg-slate-950 px-5 py-5 lg:hidden">
+          <nav className="flex flex-col gap-2">
+            {links.map((link) => <Link key={link.href} href={link.href} onClick={() => setOpen(false)} className="rounded-lg px-3 py-3 font-semibold text-slate-200 hover:bg-slate-900 hover:text-orange-500">{link.label}</Link>)}
+            <a href={`tel:+${siteConfig.operation.phone}`} className="mt-2 rounded-xl bg-orange-500 px-4 py-3 text-center font-bold text-white">Bizi Arayın</a>
           </nav>
-
-          <div className="mt-5 grid gap-3 sm:grid-cols-2">
-            <a
-              href={`tel:+${siteConfig.operation.phone}`}
-              className="rounded-xl bg-orange-500 px-5 py-4 text-center font-bold text-white"
-            >
-              Ortağımı Ara
-            </a>
-            <a
-              href={whatsappUrl}
-              target="_blank"
-              className="rounded-xl bg-green-600 px-5 py-4 text-center font-bold text-white"
-            >
-              WhatsApp Yaz
-            </a>
-          </div>
         </div>
       )}
     </header>

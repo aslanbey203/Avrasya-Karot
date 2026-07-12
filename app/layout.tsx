@@ -1,112 +1,71 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import { siteConfig } from "./lib/site";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://avrasya-karot.vercel.app"),
-
+  metadataBase: new URL(siteConfig.siteUrl),
   title: {
-    default:
-      "AVRASYA KAROT | İstanbul Karot Delme, Beton Kesme ve Kanalizasyon Hizmetleri",
+    default: "AVRASYA KAROT | Karot, Beton Kesme ve Kanalizasyon Hizmetleri",
     template: "%s | AVRASYA KAROT",
   },
-
-  description:
-    "İstanbul Avrupa ve Anadolu Yakası'nda karot delme, beton kesme, duvar kesme, kanalizasyon görüntüleme ve kanalizasyon temizleme hizmetleri. Hızlı teklif ve profesyonel çözümler.",
-
+  description: siteConfig.description,
   keywords: [
     "İstanbul karot",
     "karot delme",
     "beton kesme",
     "duvar kesme",
-    "beton delme",
     "kanalizasyon görüntüleme",
     "kanalizasyon temizleme",
-    "robotla kanal açma",
+    "kanalizasyon tıkanıklık açma",
     "gider kamerası",
-    "karot firması",
-    "İstanbul karotçu",
   ],
-
-  applicationName: "AVRASYA KAROT",
-
-  authors: [
-    {
-      name: "AVRASYA KAROT",
-    },
-  ],
-
-  creator: "AVRASYA KAROT",
-  publisher: "AVRASYA KAROT",
-
-  alternates: {
-    canonical: "/",
-  },
-
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-      "max-video-preview": -1,
-    },
-  },
-
+  alternates: { canonical: "/" },
+  robots: { index: true, follow: true },
   openGraph: {
     title: "AVRASYA KAROT",
-    description:
-      "İstanbul'da karot delme, beton kesme, duvar kesme, kanalizasyon görüntüleme ve kanalizasyon temizleme hizmetleri.",
+    description: siteConfig.description,
     url: "/",
     siteName: "AVRASYA KAROT",
     locale: "tr_TR",
     type: "website",
     images: [
       {
-        url: "/images/logo/logo.png",
-        alt: "AVRASYA KAROT logosu",
+        url: "/images/hero/team-van.png",
+        width: 1536,
+        height: 1024,
+        alt: "Avrasya Karot ekibi",
       },
     ],
   },
-
   twitter: {
     card: "summary_large_image",
     title: "AVRASYA KAROT",
-    description:
-      "Karot delme, beton kesme, duvar kesme ve kanalizasyon hizmetleri.",
-    images: ["/images/logo/logo.png"],
+    description: siteConfig.description,
+    images: ["/images/hero/team-van.png"],
   },
-
-  icons: {
-    icon: "/favicon.ico",
-  },
-
-  category: "construction",
+  icons: { icon: "/favicon.ico" },
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
+  const localBusiness = {
+    "@context": "https://schema.org",
+    "@type": "HomeAndConstructionBusiness",
+    name: siteConfig.company,
+    url: siteConfig.siteUrl,
+    telephone: `+${siteConfig.operation.phone}`,
+    areaServed: "İstanbul",
+    description: siteConfig.description,
+  };
+
   return (
-    <html
-      lang="tr"
-      className={`${geistSans.variable} ${geistMono.variable} scroll-smooth`}
-    >
-      <body className="min-h-screen bg-slate-950 text-white antialiased">
+    <html lang="tr" className="scroll-smooth">
+      <body className="min-h-screen bg-slate-950 font-sans antialiased">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusiness) }}
+        />
         {children}
       </body>
     </html>
