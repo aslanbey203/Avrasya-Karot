@@ -1,7 +1,5 @@
-const areas = [
-  "Kadıköy", "Üsküdar", "Ataşehir", "Ümraniye", "Maltepe", "Kartal", "Pendik", "Tuzla",
-  "Beşiktaş", "Şişli", "Kağıthane", "Sarıyer", "Bakırköy", "Avcılar", "Esenyurt", "Başakşehir",
-];
+import Link from "next/link";
+import { serviceAreas } from "../lib/areas";
 
 export default function ServiceAreas() {
   return (
@@ -15,16 +13,16 @@ export default function ServiceAreas() {
             İstanbul Geneli Hizmet
           </h2>
           <p className="mt-5 text-lg leading-8 text-slate-400">
-            Avrupa ve Anadolu Yakası'nda karot delme, beton kesme ve duvar kesme ihtiyaçları için hızlı iletişim.
+            Avrupa ve Anadolu Yakası&apos;nda karot delme, beton kesme ve duvar kesme ihtiyaçları için hızlı iletişim.
           </p>
         </div>
 
         <div className="mt-14 grid gap-4 sm:grid-cols-2 md:grid-cols-4">
-          {areas.map((area) => (
-            <div key={area} className="rounded-2xl border border-slate-800 bg-slate-900 px-5 py-4 font-semibold text-slate-200 transition hover:border-orange-500 hover:text-white">
+          {serviceAreas.map((area) => (
+            <Link href={`/${area.slug}`} key={area.slug} className="rounded-2xl border border-slate-800 bg-slate-900 px-5 py-4 font-semibold text-slate-200 transition hover:border-orange-500 hover:text-white">
               <span className="mr-2 text-orange-500">✓</span>
-              {area}
-            </div>
+              {area.name} Karot
+            </Link>
           ))}
         </div>
       </div>

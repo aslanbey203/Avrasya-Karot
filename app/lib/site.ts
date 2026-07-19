@@ -1,6 +1,6 @@
 export const siteConfig = {
   company: "AVRASYA KAROT",
-  siteUrl: "https://avrasya-karot.vercel.app",
+  siteUrl: "https://www.avrasyakarot.com",
   slogan: "Karot, Beton Kesme ve Kanalizasyon Çözümleri",
   description:
     "İstanbul Avrupa ve Anadolu Yakası'nda karot delme, beton kesme, duvar kesme, kanalizasyon görüntüleme, kanalizasyon temizleme ve tıkanıklık açma hizmetleri.",
