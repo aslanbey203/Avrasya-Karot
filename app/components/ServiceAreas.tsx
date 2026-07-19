@@ -15,7 +15,7 @@ export default function ServiceAreas() {
             İstanbul Geneli Hizmet
           </h2>
           <p className="mt-5 text-lg leading-8 text-slate-400">
-            Avrupa ve Anadolu Yakası'nda karot delme, beton kesme ve duvar kesme ihtiyaçları için hızlı iletişim.
+            Avrupa ve Anadolu Yakası&apos;nda karot delme, beton kesme ve duvar kesme ihtiyaçları için hızlı iletişim.
           </p>
         </div>
 
