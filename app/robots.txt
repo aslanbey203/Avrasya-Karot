@@ -1,0 +1,4 @@
+User-Agent: *
+Allow: /
+
+Sitemap: https://avrasya-karot.vercel.app/sitemap.xml
