@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import "./globals.css";
 import { siteConfig } from "./lib/site";
 
@@ -62,10 +63,28 @@ export default function RootLayout({
   return (
     <html lang="tr" className="scroll-smooth">
       <body className="min-h-screen bg-slate-950 font-sans antialiased">
+        {/* Google Ads Tag */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=AW-18397294400"
+          strategy="afterInteractive"
+        />
+
+        <Script id="google-ads-tag" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'AW-18397294400');
+          `}
+        </Script>
+
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusiness) }}
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(localBusiness),
+          }}
         />
+
         {children}
       </body>
     </html>
