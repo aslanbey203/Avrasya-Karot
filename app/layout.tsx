@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Script from "next/script";
 import "./globals.css";
 import { siteConfig } from "./lib/site";
 
@@ -20,8 +19,13 @@ export const metadata: Metadata = {
     "kanalizasyon tıkanıklık açma",
     "gider kamerası",
   ],
-  alternates: { canonical: "/" },
-  robots: { index: true, follow: true },
+  alternates: {
+    canonical: "/",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
   openGraph: {
     title: "AVRASYA KAROT",
     description: siteConfig.description,
@@ -44,7 +48,9 @@ export const metadata: Metadata = {
     description: siteConfig.description,
     images: ["/images/hero/team-van.png"],
   },
-  icons: { icon: "/favicon.ico" },
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({
@@ -63,21 +69,77 @@ export default function RootLayout({
   return (
     <html lang="tr" className="scroll-smooth">
       <body className="min-h-screen bg-slate-950 font-sans antialiased">
-        {/* Google Ads Tag */}
-        <Script
+
+        {/* Google Tag */}
+        <script
+          async
           src="https://www.googletagmanager.com/gtag/js?id=AW-18397294400"
-          strategy="afterInteractive"
         />
 
-        <Script id="google-ads-tag" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'AW-18397294400');
-          `}
-        </Script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
 
+              function gtag() {
+                dataLayer.push(arguments);
+              }
+
+              gtag('js', new Date());
+              gtag('config', 'AW-18397294400');
+
+              /*
+               * Google Ads - Telefon Tıklama Dönüşümü
+               */
+              function gtag_report_conversion(url) {
+                var callback = function () {
+                  if (typeof(url) !== 'undefined') {
+                    window.location.href = url;
+                  }
+                };
+
+                gtag('event', 'conversion', {
+                  'send_to': 'AW-18397294400/7rM0CPHD-uMcEMDewcRE',
+                  'value': 1.0,
+                  'currency': 'TRY',
+                  'event_callback': callback
+                });
+
+                return false;
+              }
+
+              /*
+               * AVRASYA KAROT telefon numarası tıklama takibi
+               * 05511062229
+               */
+              document.addEventListener('click', function(event) {
+                var target = event.target;
+
+                if (!target) return;
+
+                var link = target.closest('a[href^="tel:"]');
+
+                if (!link) return;
+
+                var phone = link.getAttribute('href');
+
+                if (!phone) return;
+
+                var cleanPhone = phone
+                  .replace('tel:', '')
+                  .replace(/\\\\D/g, '');
+
+                if (cleanPhone === '05511062229') {
+                  event.preventDefault();
+
+                  gtag_report_conversion(phone);
+                }
+              });
+            `,
+          }}
+        />
+
+        {/* Local Business Schema */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
