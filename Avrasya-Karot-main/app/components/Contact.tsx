@@ -4,14 +4,53 @@ import { MessageCircle, Phone, Send } from "lucide-react";
 import { siteConfig, whatsappUrl } from "../lib/site";
 
 export default function Contact() {
+  // WhatsApp dönüşümü
   const trackWhatsAppConversion = () => {
-    if (typeof window !== "undefined" && typeof (window as any).gtag === "function") {
+    if (
+      typeof window !== "undefined" &&
+      typeof (window as any).gtag === "function"
+    ) {
       (window as any).gtag("event", "conversion", {
         send_to: "AW-18397294400/Qa7vCIOX2ekcEMDewcRE",
         value: 1.0,
         currency: "TRY",
       });
     }
+  };
+
+  // Telefon tıklama dönüşümü
+  const trackPhoneConversion = (url: string) => {
+    if (
+      typeof window !== "undefined" &&
+      typeof (window as any).gtag === "function"
+    ) {
+      const callback = () => {
+        window.location.href = url;
+      };
+
+      (window as any).gtag("event", "conversion", {
+        send_to: "AW-18397294400/7rM0CPHD-uMcEMDewcRE",
+        value: 1.0,
+        currency: "TRY",
+        event_callback: callback,
+      });
+
+      // Google etiketi yüklenemezse de aramayı engellememek için
+      setTimeout(() => {
+        window.location.href = url;
+      }, 1000);
+    }
+  };
+
+  const handlePhoneClick = (
+    event: React.MouseEvent<HTMLAnchorElement>
+  ) => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    const url = `tel:+${siteConfig.operation.phone}`;
+
+    trackPhoneConversion(url);
   };
 
   return (
@@ -21,6 +60,7 @@ export default function Contact() {
     >
       <div className="mx-auto grid max-w-7xl gap-10 px-5 lg:grid-cols-2 lg:px-8">
 
+        {/* SOL TARAF */}
         <div>
           <span className="text-sm font-black uppercase tracking-[0.25em] text-orange-500">
             İletişim
@@ -37,6 +77,7 @@ export default function Contact() {
 
           <div className="mt-9 grid gap-5">
 
+            {/* TELEFON */}
             <div className="rounded-3xl border border-slate-700 bg-slate-950 p-6">
               <p className="text-sm font-bold text-orange-500">
                 {siteConfig.operation.title}
@@ -48,6 +89,7 @@ export default function Contact() {
 
               <a
                 href={`tel:+${siteConfig.operation.phone}`}
+                onClick={handlePhoneClick}
                 className="mt-2 inline-flex min-h-11 items-center gap-2 py-2 font-bold text-white"
               >
                 <Phone className="text-orange-500" />
@@ -55,6 +97,7 @@ export default function Contact() {
               </a>
             </div>
 
+            {/* WHATSAPP NUMARASI */}
             <div className="rounded-3xl border border-slate-700 bg-slate-950 p-6">
               <p className="text-sm font-bold text-green-500">
                 {siteConfig.sales.title}
@@ -79,6 +122,7 @@ export default function Contact() {
           </div>
         </div>
 
+        {/* SAĞ TARAF */}
         <div className="rounded-3xl border border-slate-700 bg-slate-950 p-5 sm:p-7">
           <h3 className="text-2xl font-black text-white">
             WhatsApp teklif formu
@@ -102,6 +146,7 @@ export default function Contact() {
               3. Fotoğraf ve ölçü bilgisi gönderin
             </div>
 
+            {/* WHATSAPP TEKLİF BUTONU */}
             <a
               href={whatsappUrl}
               target="_blank"
