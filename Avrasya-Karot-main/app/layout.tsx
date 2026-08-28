@@ -4,11 +4,14 @@ import { siteConfig } from "./lib/site";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.siteUrl),
+
   title: {
     default: "AVRASYA KAROT | Karot, Beton Kesme ve Kanalizasyon Hizmetleri",
     template: "%s | AVRASYA KAROT",
   },
+
   description: siteConfig.description,
+
   keywords: [
     "İstanbul karot",
     "karot delme",
@@ -19,13 +22,16 @@ export const metadata: Metadata = {
     "kanalizasyon tıkanıklık açma",
     "gider kamerası",
   ],
+
   alternates: {
     canonical: "/",
   },
+
   robots: {
     index: true,
     follow: true,
   },
+
   openGraph: {
     title: "AVRASYA KAROT",
     description: siteConfig.description,
@@ -42,12 +48,14 @@ export const metadata: Metadata = {
       },
     ],
   },
+
   twitter: {
     card: "summary_large_image",
     title: "AVRASYA KAROT",
     description: siteConfig.description,
     images: ["/images/hero/team-van.png"],
   },
+
   icons: {
     icon: "/favicon.ico",
   },
@@ -70,7 +78,7 @@ export default function RootLayout({
     <html lang="tr" className="scroll-smooth">
       <body className="min-h-screen bg-slate-950 font-sans antialiased">
 
-        {/* Google Tag */}
+        {/* Google Ads Tag */}
         <script
           async
           src="https://www.googletagmanager.com/gtag/js?id=AW-18397294400"
@@ -84,6 +92,9 @@ export default function RootLayout({
               function gtag() {
                 dataLayer.push(arguments);
               }
+
+              // Google Ads dönüşüm takibi için gtag'ı window'a açıyoruz
+              window.gtag = gtag;
 
               gtag('js', new Date());
               gtag('config', 'AW-18397294400');
@@ -109,7 +120,7 @@ export default function RootLayout({
               }
 
               /*
-               * AVRASYA KAROT telefon numarası tıklama takibi
+               * Telefon tıklama takibi
                * 05511062229
                */
               document.addEventListener('click', function(event) {
@@ -127,7 +138,7 @@ export default function RootLayout({
 
                 var cleanPhone = phone
                   .replace('tel:', '')
-                  .replace(/\\\\D/g, '');
+                  .replace(/\\D/g, '');
 
                 if (cleanPhone === '05511062229') {
                   event.preventDefault();
